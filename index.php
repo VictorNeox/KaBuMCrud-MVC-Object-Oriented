@@ -1,10 +1,15 @@
 <?php
 
+require 'vendor/autoload.php';
+
 require 'core/bootstrap.php';
+
+
+use App\Core\{Router, Request};
 
 $db = Db::connect();
 
 $uri = trim($_SERVER['REQUEST_URI'], '/');
 
-require Router::load('routes.php')->direct(REQUEST::uri());
-
+Router::load('app/routes.php')
+    ->direct(Request::uri(), Request::method());

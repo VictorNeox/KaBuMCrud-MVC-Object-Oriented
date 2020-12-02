@@ -1,5 +1,8 @@
 <?php
 
-require 'Router.php';
-require 'Request.php';
-require 'database/Db.php';
+use App\Core\App;
+
+function view($name, $data = []) {
+    extract($data);
+    return require "app/views/{$name}.view.php";
+}
