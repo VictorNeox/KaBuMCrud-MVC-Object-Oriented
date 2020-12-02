@@ -4,7 +4,7 @@ class Db {
     private $connection;
 
 
-    public static function connect($dbConfig) {
+    public static function connect() {
         $dbConfig = parse_ini_file('config/database.ini');
         $dns = $dbConfig['driver'] . ":dbname=" . $dbConfig['dbname'] . ";host=" . $dbConfig['host'];
         try {
