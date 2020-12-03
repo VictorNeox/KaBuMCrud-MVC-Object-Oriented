@@ -7,10 +7,12 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App' => $baseDir . '/core/App.php',
+    'App\\Controllers\\ClientsController' => $baseDir . '/app/controllers/ClientsController.php',
     'App\\Controllers\\PagesController' => $baseDir . '/app/controllers/PagesController.php',
     'App\\Controllers\\UsersController' => $baseDir . '/app/controllers/UsersController.php',
     'App\\Core\\Request' => $baseDir . '/core/Request.php',
     'App\\Core\\Router' => $baseDir . '/core/Router.php',
+    'App\\Models\\Client' => $baseDir . '/app/models/Client.php',
     'App\\Models\\User' => $baseDir . '/app/models/User.php',
     'App\\Models\\Validator' => $baseDir . '/app/models/Validator.php',
     'ComposerAutoloaderInit8baff1aa71876e48ab89ee3d5e707ae3' => $vendorDir . '/composer/autoload_real.php',

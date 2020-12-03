@@ -12,12 +12,11 @@ class User {
     public $access; 
     public $email;
 
-    public function __construct($id, $login, $password, $name, $access, $email) {
+    public function __construct($login, $password, $name, $email) {
         $this->login = $login;
         $this->password = sha1($password);
         $this->name = $name;
         $this->email = $email;
-        echo 'instanciado';
     }
 
     public function store() {
@@ -34,6 +33,8 @@ class User {
             $this->name,
             $this->email
         ));
+
+        $sth->errorInfo();
 
         return ($rows) ? json_encode("Usuário inserido com sucesso.") : json_encode("Ocorreu um erro durante a inserção no banco.");
     }

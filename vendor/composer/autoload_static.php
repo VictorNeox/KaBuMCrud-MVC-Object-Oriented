@@ -8,10 +8,12 @@ class ComposerStaticInit8baff1aa71876e48ab89ee3d5e707ae3
 {
     public static $classMap = array (
         'App' => __DIR__ . '/../..' . '/core/App.php',
+        'App\\Controllers\\ClientsController' => __DIR__ . '/../..' . '/app/controllers/ClientsController.php',
         'App\\Controllers\\PagesController' => __DIR__ . '/../..' . '/app/controllers/PagesController.php',
         'App\\Controllers\\UsersController' => __DIR__ . '/../..' . '/app/controllers/UsersController.php',
         'App\\Core\\Request' => __DIR__ . '/../..' . '/core/Request.php',
         'App\\Core\\Router' => __DIR__ . '/../..' . '/core/Router.php',
+        'App\\Models\\Client' => __DIR__ . '/../..' . '/app/models/Client.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/models/User.php',
         'App\\Models\\Validator' => __DIR__ . '/../..' . '/app/models/Validator.php',
         'ComposerAutoloaderInit8baff1aa71876e48ab89ee3d5e707ae3' => __DIR__ . '/..' . '/composer/autoload_real.php',
