@@ -6,10 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>HOME</h1>
-
-    <?php
-        print_r($data);
-    ?>
+    <pre>
+        <?php
+            foreach($data as $user) {
+                print_r($user);
+            }
+        ?>
+    </pre>
 </body>
 </html>

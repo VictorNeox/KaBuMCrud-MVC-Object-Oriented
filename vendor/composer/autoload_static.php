@@ -13,6 +13,7 @@ class ComposerStaticInit8baff1aa71876e48ab89ee3d5e707ae3
         'App\\Core\\Request' => __DIR__ . '/../..' . '/core/Request.php',
         'App\\Core\\Router' => __DIR__ . '/../..' . '/core/Router.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/models/User.php',
+        'App\\Models\\Validator' => __DIR__ . '/../..' . '/app/models/Validator.php',
         'ComposerAutoloaderInit8baff1aa71876e48ab89ee3d5e707ae3' => __DIR__ . '/..' . '/composer/autoload_real.php',
         'Composer\\Autoload\\ClassLoader' => __DIR__ . '/..' . '/composer/ClassLoader.php',
         'Composer\\Autoload\\ComposerStaticInit8baff1aa71876e48ab89ee3d5e707ae3' => __DIR__ . '/..' . '/composer/autoload_static.php',
