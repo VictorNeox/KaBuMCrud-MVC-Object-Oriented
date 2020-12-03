@@ -22,7 +22,6 @@ class Client {
         $this->telephone1 = $telephone1;
         $this->telephone2 = $telephone2;
 
-
         $this->birth = implode('-', array_reverse(explode("/",$birth)));
 
         $this->email = $email;
@@ -48,8 +47,6 @@ class Client {
             $this->email,
             $this->user_id
         ));
-
-        print_r($sth->errorInfo());
 
         return ($rows) ? json_encode("Cliente inserido com sucesso.") : json_encode("Ocorreu um erro durante a inserção no banco.");
     }

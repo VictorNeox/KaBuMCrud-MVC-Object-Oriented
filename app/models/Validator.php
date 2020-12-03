@@ -32,6 +32,30 @@ class Validator {
         }
     }
 
+    public function validateCPF($cpf) {
+        if(!isset($cpf) || empty($cpf) || strlen($cpf) != 11 || !preg_match('/^[0-9]*$/', $cpf)) {
+            $this->setError("O CPF é obrigatório e precisa ter exatamente 11 caractéres (Apenas números).");
+        }
+    }
+
+    public function validateRG($rg) {
+        if(!isset($rg) || empty($rg) || strlen($rg) != 9 || !preg_match('/^[0-9]*$/', $rg)) {
+            $this->setError("O RG é obrigatório e precisa ter exatamente 9 caractéres (Apenas números).");
+        }
+    }
+
+    public function validateTelephone($telephone) {
+        if(!isset($telephone) || empty($telephone) || strlen($telephone) != 9 || !preg_match('/^[0-9]*$/', $rg)) {
+            $this->setError("O Telefone é obrigatório e precisa ter exatamente 9 caractéres (Apenas números).");
+        }
+    }
+
+    // public function validateDate($date) {
+    //     if(!isset($date) || empty($date) || checkdate($date)) {
+    //         $this->setError("Data inválida.");
+    //     }
+    // }
+
     private function setError($error) {
         array_push($this->errors, $error);
     }
