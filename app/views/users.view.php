@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="app/assets/css/clients.css">
     
     <?php require 'partials/cdn.php' ?>
+
+    <link rel="stylesheet" href="app/assets/css/users.css">
 </head>
 <body>
     <?php require 'partials/header.php' ?>
@@ -23,23 +25,25 @@
                         <tr>
                             <th>ID</th>
                             <th>Nome</th>
-                            <th>Nível de Acesso</th>
+                            <th style="width: 250px;">Nível de Acesso</th>
                             <th>E-mail</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <?php foreach($users as $user){
-                        ?>
+                        <?php foreach($users as $user){ ?>
                             <tr>
                                 <td><?php echo htmlspecialchars($user->id) ?></td>
                                 <td><?php echo htmlspecialchars($user->name) ?></td>
                                 <td>
-                                    <select name="access" id="access">
-                                        <option value="admin">Administrador</option>
-                                        <option value="user">Usuário</option>
-                                    </select>    
-                                <?php echo htmlspecialchars($user->access) ?></td>
+                                    <div class="switch">
+                                        <label style="font-size: 14px;">
+                                        Usuário
+                                        <input type="checkbox" class="toogle-access" data-id="<?php echo $user->id?>" <?php echo $user->access ? 'checked' : ''?>>
+                                        <span class="lever"></span>
+                                        Administrador
+                                        </label>
+                                    </div>
                                 <td><?php echo htmlspecialchars($user->email) ?></td>
                             </tr>
                         <?php } ?>

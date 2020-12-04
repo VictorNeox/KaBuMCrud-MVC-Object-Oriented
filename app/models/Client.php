@@ -83,6 +83,7 @@ class Client {
     }
 
     public function delete($clientId) {
+
         $db = Db::connect();
         $query = 
                 "UPDATE
@@ -101,7 +102,12 @@ class Client {
 
     public static function loadAll() {
         $db = Db::connect();
+        $filter = $_GET['filter'];
+        $search = $_GET['search'];
 
+        if((isset($filter) && !empty($filter)) && (isset($search) && !empty($search))) {
+            $where = "WHERE $filter LIKE '%$search%'";
+        }
         $query = 
                 "SELECT    
                         id,
@@ -115,12 +121,14 @@ class Client {
                         isActive
                     FROM
                         clients
+                    $where
+                    ORDER BY
+                        isActive DESC
                 ";
         $sth = $db->prepare($query);
         $sth->execute();
-        $clients = $sth->fetchAll(PDO::FETCH_ASSOC);
 
-        return $clients;
+        return $sth->fetchAll(PDO::FETCH_OBJ);
 
     }
 }

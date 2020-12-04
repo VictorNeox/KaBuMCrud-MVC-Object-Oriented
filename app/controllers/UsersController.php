@@ -21,7 +21,7 @@ class UsersController {
 
         $response = $user->store();
 
-        echo $response;
+        echo json_encode($response);
     }
 
     // public function authenticate() {
@@ -49,5 +49,13 @@ class UsersController {
         $users = User::loadAll();
 
         return view('users', compact('users'));
+    }
+
+    public function toogleAccess() {
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $response = User::toogleAccess($data['id']);
+
+        echo json_encode($response);
     }
 }

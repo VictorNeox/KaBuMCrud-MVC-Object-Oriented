@@ -1,0 +1,7 @@
+.switch label input[type=checkbox]+.lever {
+    background-color: #80C2BC;
+  }
+  
+  .switch label input[type=checkbox]+.lever:after {
+    background-color: #26A69A
+  }

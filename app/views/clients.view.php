@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="app/assets/css/clients.css">
-    
     <?php require 'partials/cdn.php' ?>
+    
+    <link rel="stylesheet" href="app/assets/css/clients.css">
 </head>
 <body>
     <?php require 'partials/header.php' ?>
@@ -58,19 +58,19 @@
 
                     <tbody>
                         <?php foreach($clients as $client){ 
-                            $status = $client['isActive'] ? 'active-icon' : 'inactive-icon'; 
+                            $status = $client->isActive ? 'active-icon' : 'inactive-icon'; 
                         ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($client['id']); ?></td>
-                                <td><?php echo htmlspecialchars($client['name']); ?></td>
-                                <td class="cpf"><?php echo htmlspecialchars($client['cpf']); ?></td>
-                                <td class="rg"><?php echo htmlspecialchars($client['rg']); ?></td>
-                                <td><?php echo htmlspecialchars($client['email']); ?></td>
+                                <td><?php echo htmlspecialchars($client->id) ?></td>
+                                <td><?php echo htmlspecialchars($client->name) ?></td>
+                                <td class="cpf"><?php echo htmlspecialchars($client->cpf) ?></td>
+                                <td class="rg"><?php echo htmlspecialchars($client->rg) ?></td>
+                                <td><?php echo htmlspecialchars($client->email) ?></td>
                                 <td>
-                                    <i data-id="<?php echo $client['id']; ?>" class="fas fas fa-eye info-client modal-trigger" href="#info-modal"></i>
-                                    <i data-id="<?php echo $client['id']; ?>" class="fas fa-pencil-alt pencil-icon edit-client"></i>
-                                    <i data-id="<?php echo $client['id']; ?>" class="fas fa-circle delete-button delete-client <?php echo $status?>"></i>
-                                    <i data-id="<?php echo $client['id']; ?>" class="fas fa-map-marker-alt address-icon address-client"></i>
+                                    <i data-id="<?php echo $client->id; ?>" class="fas fas fa-eye info-client modal-trigger" href="#info-modal"></i>
+                                    <i data-id="<?php echo $client->id; ?>" class="fas fa-pencil-alt pencil-icon edit-client"></i>
+                                    <i data-id="<?php echo $client->id; ?>" class="fas fa-circle delete-button delete-client <?php echo $status?>"></i>
+                                    <i data-id="<?php echo $client->id; ?>" class="fas fa-map-marker-alt address-icon address-client"></i>
                                 </td>
                             </tr>
                         <?php } ?>

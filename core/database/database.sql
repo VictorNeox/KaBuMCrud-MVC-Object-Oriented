@@ -3,7 +3,7 @@ CREATE TABLE users(
     login varchar(30) NOT NULL,
     password varchar(255) NOT NULL,
     name varchar(100) NOT NULL,
-    access int DEFAULT 1,
+    access boolean DEFAULT 0,
     email varchar(255) NOT NULL,
     PRIMARY KEY (id)
 );

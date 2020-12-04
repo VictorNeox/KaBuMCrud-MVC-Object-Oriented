@@ -27,16 +27,23 @@ class User {
                     (?, ?, ?, ?)
                 ";
         $sth = $db->prepare($query);
-        $rows = $sth->execute(array(
+        $sth->execute(array(
             $this->login,
             $this->password,
             $this->name,
             $this->email
         ));
 
-        $sth->errorInfo();
 
-        return ($rows) ? json_encode("Usuário inserido com sucesso.") : json_encode("Ocorreu um erro durante a inserção no banco.");
+        $rows = $sth->rowCount();
+        if($rows) {
+            $response = array("status" => "success", "message" => "Usuário inserido com sucesso");
+        } else {
+            $response = array("status" => "error", "message" => "Ocorreu um erro, tente novamente.");
+            http_response_code(400);
+        }
+        
+        return $response;
     }
 
     public function loadAll() {
@@ -54,5 +61,28 @@ class User {
         $sth->execute();
         
         return $sth->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function toogleAccess($iddsadsa) {
+        $db = Db::connect();
+        $query = 
+            "UPDATE
+                users
+            SET access = NOT access
+            WHERE id = ?
+        ";
+        $sth = $db->prepare($query);
+        $sth->execute(array($id));
+
+        $rows = $sth->rowCount();
+
+        if($rows) {
+            $response = array("status" => "success", "message" => "O nível de acesso do usuário foi alterado.");
+        } else {
+            $response = array("status" => "error", "message" => "Ocorreu um erro, tente novamente.");
+            http_response_code(400);
+        }
+        
+        return $response;
     }
 }
