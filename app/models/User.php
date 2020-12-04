@@ -39,13 +39,11 @@ class User {
         return ($rows) ? json_encode("Usuário inserido com sucesso.") : json_encode("Ocorreu um erro durante a inserção no banco.");
     }
 
-    public function listAll() {
+    public function loadAll() {
         $db = Db::connect();
         $query = 
                 "SELECT    
                         id,
-                        login,
-                        password,
                         name,
                         access,
                         email

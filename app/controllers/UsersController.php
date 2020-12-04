@@ -8,13 +8,8 @@ class UsersController {
 
         $data = json_decode(file_get_contents('php://input'), true);
         $validate = new Validator();
-
-        $validate->validateEmail($data['email']);
-        $validate->validateLogin($data['login']);
-        $validate->validateName($data['name']);
-        $validate->validatePassword($data['password']);
-
-        $errors = $validate->getErrors();
+        
+        $errors = $validate->validateUser($data);
 
         if(!empty($errors)) {
             http_response_code(400);
@@ -50,8 +45,8 @@ class UsersController {
     //     if(!$response) 
     // }
 
-    public function listAll() {
-        $users = User::listAll();
+    public function loadAll() {
+        $users = User::loadAll();
 
         return view('users', compact('users'));
     }

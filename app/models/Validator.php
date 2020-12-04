@@ -9,6 +9,28 @@ class Validator {
 
     }
 
+
+    public function validateClient(array $data) {
+        $this->validateName($data['name']);
+        $this->validateEmail($data['email']);
+        $this->validateCPF($data['cpf']);
+        $this->validateRG($data['rg']);
+        $this->validateTelephone($data['telephone1']);
+        $this->validateTelephone($data['telephone2']);
+
+        return $this->getErrors();
+    }
+
+    public function validateUser(array $data) {
+        $this->validateEmail($data['email']);
+        $this->validateLogin($data['login']);
+        $this->validateName($data['name']);
+        $this->validatePassword($data['password']);
+
+        return $this->getErrors();
+    }
+
+
     public function validateEmail($email) {
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->setError('E-mail inválido ou inexistente.');
