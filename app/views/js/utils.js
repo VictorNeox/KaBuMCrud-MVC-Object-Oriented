@@ -21,7 +21,8 @@ $(".edit-btn").on('click', (e) => {
     const clientId = $(e.target).attr("data-id");
 
     let data = {'id': clientId};
-
+    $("#edit-form #id").val(clientId);
+    
     $.ajax({
         type: 'GET',
         url: 'client/getInfo',
@@ -54,5 +55,5 @@ $(".edit-btn").on('click', (e) => {
             // });
         }
     });
-    $("#edit-form #id").val(clientId);
+
 })

@@ -60,7 +60,7 @@ class Client {
         return $response;
     }
 
-    public static function update($clientId) {
+    public function update($clientId) {
         $db = Db::connect();
         $query = 
                 "UPDATE
