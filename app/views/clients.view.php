@@ -65,7 +65,7 @@
                                 <td><?php echo htmlspecialchars($client->email) ?></td>
                                 <td>
                                     <i data-id="<?php echo $client->id; ?>" class="fas fas fa-eye info-client modal-trigger" href="#info-modal"></i>
-                                    <i data-id="<?php echo $client->id; ?>" class="fas fa-pencil-alt pencil-icon edit-client"></i>
+                                    <i data-id="<?php echo $client->id; ?>" class="fas fa-pencil-alt pencil-icon modal-trigger edit-btn" href="#editModal"></i>
                                     <i data-id="<?php echo $client->id; ?>" class="fas fa-circle delete-button delete-client <?php echo $status?>"></i>
                                     <i data-id="<?php echo $client->id; ?>" class="fas fa-map-marker-alt address-icon address-client"></i>
                                 </td>
@@ -78,5 +78,6 @@
     </div>
     
     <?php require ('partials/insertClientModal.php'); ?>
+    <?php require ('partials/editClientModal.php'); ?>
 </body>
 </html>

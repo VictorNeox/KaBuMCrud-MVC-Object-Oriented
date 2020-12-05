@@ -37,7 +37,8 @@ class ClientsController {
 
         if(!isset($data['id']) || empty($data['id'])) {
             http_response_code(400);
-            echo json_encode(["O ID do client é obrigatório."]);
+            $response = array("status" => "error", "message" => "O ID do cliente é obrigatório.");
+            echo json_encode($response);
             die();
         }
 
@@ -45,7 +46,8 @@ class ClientsController {
                             $data['telephone2'], $data['birth'], $data['email'], $data['user_id']
                 );
 
-        echo $client->update($data['id']);
+        $response = $client->update($data['id']);
+        echo json_encode($response);
     }
 
     // Na verdade, essa irá INATIVAR o cadastro.
@@ -64,6 +66,23 @@ class ClientsController {
         $response = Client::delete($data['id']);
 
         echo json_encode($response);
+    }
+
+    public function getInfo() {
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        echo json_encode($data);
+
+        // if(!isset($data['id']) || empty($data['id'])) {
+        //     http_response_code(400);
+        //     $response = array("status" => "error", "message" => "O ID do cliente é obrigatório.");
+        //     echo json_encode($response);
+        //     die();
+        // }
+
+        // $response = Client::delete($data['id']);
+
+        // echo json_encode($response);
     }
 
     public function loadAll() {

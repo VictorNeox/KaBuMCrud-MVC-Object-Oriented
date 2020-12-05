@@ -38,7 +38,7 @@ class Client {
                 ";
 
         $sth = $db->prepare($query);
-        $rows = $sth->execute(array(
+        $sth->execute(array(
             $this->name,
             $this->cpf,
             $this->rg,
@@ -60,7 +60,7 @@ class Client {
         return $response;
     }
 
-    public function update($clientId) {
+    public static function update($clientId) {
         $db = Db::connect();
         $query = 
                 "UPDATE
@@ -76,7 +76,7 @@ class Client {
                 WHERE
                     id = ?";
         $sth = $db->prepare($query);
-        $rows = $sth->execute(array(
+        $sth->execute(array(
             $this->name,
             $this->cpf,
             $this->rg,
@@ -87,10 +87,18 @@ class Client {
             $clientId
         ));
 
-        return ($rows) ? json_encode("Cliente atualizado com sucesso.") : json_encode("Ocorreu um erro durante a atualização no banco.");
+        $rows = $sth->rowCount();
+        if($rows) {
+            $response = array("status" => "success", "message" => "Cliente atualizado com sucesso");
+        } else {
+            $response = array("status" => "error", "message" => "Ocorreu um erro, tente novamente.");
+            http_response_code(400);
+        }
+
+        return $response;
     }
 
-    public function delete($clientId) {
+    public static function delete($clientId) {
 
         $db = Db::connect();
         $query = 
@@ -101,7 +109,7 @@ class Client {
                 WHERE
                     id = ?";
         $sth = $db->prepare($query);
-        $rows = $sth->execute(array(
+        $sth->execute(array(
             $clientId
         ));
 
@@ -113,6 +121,33 @@ class Client {
             http_response_code(400);
         }
 
+        return $response;
+    }
+
+    public static function getInfo($clientId) {
+        $query = 
+                "SELECT
+                    name,
+                    email,
+                    birth,
+                    cpf,
+                    rg,
+                    cpf,
+                    telephone1,
+                    telephone2
+                FROM 
+                    clients
+                WHERE 
+                    id = ?";
+        $sth = $db->prepare($query);
+        $rows = $sth->rowsCount();
+
+        if($rows) {
+            $response = array("status" => "success", "message" => "Informações encontradas.", "data" => $sth->fetch(PDO::FETCH_OBJ));
+        } else {
+            $response = array("status" => "error", "message" => "Ocorreu um erro, tente novamente.");
+            http_response_code(400);
+        }
         return $response;
     }
 

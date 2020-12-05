@@ -21,8 +21,6 @@ $(".toogle-access").on('change', (e) => {
 });
 
 $("#insert-client").on('click', (e) => {
-    //let data = $('#insert-form').serializeArray();
-
     let data = {};
 
     $.each($('#insert-form').serializeArray(), function() {
@@ -32,6 +30,18 @@ $("#insert-client").on('click', (e) => {
     data['user_id'] = '1';
     data = JSON.stringify(data);
     doRequest('client', 'POST', data);
+});
+
+$("#edit-client").on('click', (e) => {
+    let data = {};
+
+    $.each($('#edit-form').serializeArray(), function() {
+        data[this.name] = this.value;
+    });
+
+    data['user_id'] = '1';
+    data = JSON.stringify(data);
+    doRequest('client', 'PUT', data);
 });
 
 
