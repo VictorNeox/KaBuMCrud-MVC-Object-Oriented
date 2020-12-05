@@ -125,6 +125,7 @@ class Client {
     }
 
     public static function getInfo($clientId) {
+        $db = Db::connect();
         $query = 
                 "SELECT
                     name,
@@ -140,7 +141,9 @@ class Client {
                 WHERE 
                     id = ?";
         $sth = $db->prepare($query);
-        $rows = $sth->rowsCount();
+        $sth->execute(array($clientId));
+
+        $rows = $sth->rowCount();
 
         if($rows) {
             $response = array("status" => "success", "message" => "Informações encontradas.", "data" => $sth->fetch(PDO::FETCH_OBJ));

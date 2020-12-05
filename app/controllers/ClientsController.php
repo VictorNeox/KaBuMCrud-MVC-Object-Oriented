@@ -69,20 +69,19 @@ class ClientsController {
     }
 
     public function getInfo() {
-        $data = json_decode(file_get_contents('php://input'), true);
+        $id = $_GET['id'];
 
-        echo json_encode($data);
 
-        // if(!isset($data['id']) || empty($data['id'])) {
-        //     http_response_code(400);
-        //     $response = array("status" => "error", "message" => "O ID do cliente é obrigatório.");
-        //     echo json_encode($response);
-        //     die();
-        // }
+        if(!isset($id) || empty($id)) {
+            http_response_code(400);
+            $response = array("status" => "error", "message" => "O ID do cliente é obrigatório.");
+            echo json_encode($response);
+            die();
+        }
 
-        // $response = Client::delete($data['id']);
+        $response = Client::getInfo($id);
 
-        // echo json_encode($response);
+        echo json_encode($response);
     }
 
     public function loadAll() {

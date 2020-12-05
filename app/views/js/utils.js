@@ -20,9 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
 $(".edit-btn").on('click', (e) => {
     const clientId = $(e.target).attr("data-id");
 
-    let data = JSON.stringify({'id': clientId});
-
-    console.log(data);
+    let data = {'id': clientId};
 
     $.ajax({
         type: 'GET',
@@ -31,10 +29,20 @@ $(".edit-btn").on('click', (e) => {
         dataType: 'json',
         data,
         success: function(response){
-            console.log(response);
+            $("#edit-form #name").val(response.data.name);
+            $("#edit-form #email").val(response.data.email);
+            $("#edit-form #birth").val(response.data.birth);
+            $("#edit-form #cpf").val(response.data.cpf);
+            $("#edit-form #rg").val(response.data.rg);
+            $("#edit-form #telephone1").val(response.data.telephone1);
+            $("#edit-form #telephone2").val(response.data.telephone2);
+            $(document).ready(function() {
+                Materialize.updateTextFields();
+            });
+
         },
         error: function(response) {
-            console.log(response);
+            $("#insert-forml #name").val(response.data.name);
             // Swal.fire({
 
             //     title: 'Erro!',

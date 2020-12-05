@@ -9,7 +9,7 @@
                         name="name" 
                         type="text" 
                         class="validate" 
-                        onkeypress="return !(/[0-9!@#$%¨&*)(-+*/><_-]/i.test(event.key))" 
+
                         required
                     >
                     <label for="name">Nome</label>
