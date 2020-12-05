@@ -63,7 +63,7 @@ class User {
         return $sth->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function toogleAccess($iddsadsa) {
+    public function toogleAccess($id) {
         $db = Db::connect();
         $query = 
             "UPDATE

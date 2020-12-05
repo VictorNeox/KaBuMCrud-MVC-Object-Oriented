@@ -70,5 +70,17 @@ form div[class="error"] {
 }
 
 .modal {
-    background-color: gray !important;
+    border-radius: 5px !important;
+}
+
+.datepicker-modal {
+    height: 350px;
+}
+
+.datepicker-container {
+    height: 100% !important;
+}
+
+.modal {
+    width: 500px !important;
 }

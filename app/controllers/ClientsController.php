@@ -19,7 +19,8 @@ class ClientsController {
                             $data['telephone2'], $data['birth'], $data['email'], $data['user_id']
                 );
 
-        echo $client->store();
+        $response = $client->store();
+        echo json_encode($response);
     }
 
     public function update() {
@@ -55,11 +56,14 @@ class ClientsController {
 
         if(!isset($data['id']) || empty($data['id'])) {
             http_response_code(400);
-            echo json_encode(["O ID do client é obrigatório."]);
+            $response = array("status" => "error", "message" => "O ID do cliente é obrigatório.");
+            echo json_encode($response);
             die();
         }
 
-        echo Client::delete($data['id']);
+        $response = Client::delete($data['id']);
+
+        echo json_encode($response);
     }
 
     public function loadAll() {

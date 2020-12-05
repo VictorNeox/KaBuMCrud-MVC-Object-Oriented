@@ -21,7 +21,7 @@ class Client {
         $this->telephone1 = $telephone1;
         $this->telephone2 = $telephone2;
 
-        $this->birth = implode('-', array_reverse(explode("/",$birth)));
+        $this->birth = $birth;
 
         $this->email = $email;
         $this->user_id = $user_id;
@@ -49,7 +49,15 @@ class Client {
             $this->user_id
         ));
 
-        return ($rows) ? json_encode("Cliente inserido com sucesso.") : json_encode("Ocorreu um erro durante a inserção no banco.");
+        $rows = $sth->rowCount();
+        if($rows) {
+            $response = array("status" => "success", "message" => "Cliente registrado com sucesso");
+        } else {
+            $response = array("status" => "error", "message" => "Ocorreu um erro, tente novamente.");
+            http_response_code(400);
+        }
+
+        return $response;
     }
 
     public function update($clientId) {
@@ -97,13 +105,22 @@ class Client {
             $clientId
         ));
 
-        return ($rows) ? json_encode("Status do Cliente atualizado com sucesso.") : json_encode("Ocorreu um erro durante a atualização no banco.");
+        $rows = $sth->rowCount();
+        if($rows) {
+            $response = array("status" => "success", "message" => "O status do cliente foi alterado.");
+        } else {
+            $response = array("status" => "error", "message" => "Ocorreu um erro, tente novamente.");
+            http_response_code(400);
+        }
+
+        return $response;
     }
 
     public static function loadAll() {
         $db = Db::connect();
-        $filter = $_GET['filter'];
-        $search = $_GET['search'];
+        $filter = (isset($_GET['filter'])) ? $_GET['filter'] : '';
+        $search = (isset($_GET['search'])) ? $_GET['search'] : '';
+        $where = '';
 
         if((isset($filter) && !empty($filter)) && (isset($search) && !empty($search))) {
             $where = "WHERE $filter LIKE '%$search%'";

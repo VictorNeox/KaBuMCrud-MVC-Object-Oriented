@@ -67,7 +67,7 @@ class Validator {
     }
 
     public function validateTelephone($telephone) {
-        if(!isset($telephone) || empty($telephone) || strlen($telephone) != 9 || !preg_match('/^[0-9]*$/', $rg)) {
+        if(!isset($telephone) || empty($telephone) || strlen($telephone) != 9 || !preg_match('/^[0-9]*$/', $telephone)) {
             $this->setError("O Telefone é obrigatório e precisa ter exatamente 9 caractéres (Apenas números).");
         }
     }
