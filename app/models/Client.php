@@ -89,7 +89,7 @@ class Client {
 
         $rows = $sth->rowCount();
         if($rows) {
-            $response = array("status" => "success", "message" => "Cliente atualizado com sucesso");
+            $response = array("status" => "success", "message" => "Informações alteradas com sucesso");
         } else {
             $response = array("status" => "error", "message" => "Ocorreu um erro, tente novamente.");
             http_response_code(400);

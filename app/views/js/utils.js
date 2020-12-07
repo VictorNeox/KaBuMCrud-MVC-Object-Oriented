@@ -37,9 +37,7 @@ $(".edit-btn").on('click', (e) => {
             $("#edit-form #rg").val(response.data.rg);
             $("#edit-form #telephone1").val(response.data.telephone1);
             $("#edit-form #telephone2").val(response.data.telephone2);
-            $(document).ready(function() {
-                Materialize.updateTextFields();
-            });
+            M.updateTextFields();
 
         },
         error: function(response) {

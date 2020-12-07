@@ -1,6 +1,6 @@
 <div id="editModal" class="modal modal-fixed-footer">
     <form id="edit-form" class=" col s12 offset-s1">
-        <input type="text" id="id" name="id">
+        <input type="hidden" id="id" name="id">
         <div class="modal-content">
         <h4 class="center-align">Editar cliente</h4>
             <div class="row">
