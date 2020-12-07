@@ -60,8 +60,11 @@ class Client {
         return $response;
     }
 
-    public function update($clientId) {
+    public function update($clientId, $userData) {
+        $access = $userData['access'];
+        $user_id = $userData['id'];
         $db = Db::connect();
+        $where = ($access < 1) ? "AND user_id = '$user_id'" : "";
         $query = 
                 "UPDATE
                     clients
@@ -74,7 +77,8 @@ class Client {
                     birth = ?,
                     email = ?
                 WHERE
-                    id = ?";
+                    id = ?
+                    $where";
         $sth = $db->prepare($query);
         $sth->execute(array(
             $this->name,
@@ -98,8 +102,15 @@ class Client {
         return $response;
     }
 
-    public static function delete($clientId) {
+    public static function delete($clientId, $userData) {
 
+        $access = $userData['access'];
+        
+        if($access < 1) {
+            $response = array("status" => "error", "message" => "Você não tem permissão para isso.");
+            http_response_code(403);
+            return $response;
+        }
         $db = Db::connect();
         $query = 
                 "UPDATE
@@ -154,15 +165,25 @@ class Client {
         return $response;
     }
 
-    public static function loadAll() {
+    public static function loadAll($userData) {
+
+        $access = $userData['access'];
+        $user_id = $userData['id'];
+
         $db = Db::connect();
         $filter = (isset($_GET['filter'])) ? $_GET['filter'] : '';
         $search = (isset($_GET['search'])) ? $_GET['search'] : '';
         $where = '';
+        $whereId = '';
 
         if((isset($filter) && !empty($filter)) && (isset($search) && !empty($search))) {
             $where = "WHERE $filter LIKE '%$search%'";
         }
+
+        if($access < 1) {
+            $where = (empty($where)) ? "WHERE user_id = '$user_id'" : $where . " AND user_id = '$user_id'";
+        }
+        
         $query = 
                 "SELECT    
                         id,

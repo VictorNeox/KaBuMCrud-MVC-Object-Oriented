@@ -24,26 +24,26 @@ class UsersController {
         echo json_encode($response);
     }
 
-    // public function authenticate() {
-    //     $data = json_decode(file_get_contents('php://input'), true);
+    public function authenticate() {
+        $data = json_decode(file_get_contents('php://input'), true);
 
-    //     $validate = new Validator();
+        $validate = new Validator();
 
-    //     $validate->validateLogin($data['login']);
-    //     $validate->validatePassword($data['password']);
+        $validate->validateLogin($data['login']);
+        $validate->validatePassword($data['password']);
 
-    //     $errors = $validate->getErrors();
+        $errors = $validate->getErrors();
 
-    //     if(!empty($errors)) {
-    //         http_response_code(400);
-    //         echo json_encode($errors);
-    //         die();
-    //     }
+        if(!empty($errors)) {
+            http_response_code(400);
+            echo json_encode(array("status" => "error", "message" => $errors));
+            die();
+        }
 
-    //     $response = User::authenticate($data['login'], $data['password']);
+        $response = User::authenticate($data['login'], $data['password']);
 
-    //     if(!$response) 
-    // }
+        echo json_encode($response);
+    }
 
     public function loadAll() {
         $users = User::loadAll();

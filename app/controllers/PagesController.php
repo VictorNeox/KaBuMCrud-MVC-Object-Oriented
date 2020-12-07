@@ -5,13 +5,16 @@ namespace App\Controllers;
 class PagesController {
 
     public function home() {
-        $users = [
-            'name' => 'Victor'
-        ];
-        return view('index', compact('users'));
+        header("Location: clients");
     }
 
-    public function about() {
-       return view('about');
+    public function login() {
+        if(isset($_COOKIE['token']))
+            header("Location: clients");
+        return view('login');
+    }
+
+    public function register() {
+        return view('register');
     }
 }

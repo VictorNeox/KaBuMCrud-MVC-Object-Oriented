@@ -1,11 +1,14 @@
 <?php
 
 $router->get('', 'PagesController@home');
-$router->get('about', 'PagesController@about');
+$router->get('login', 'PagesController@login');
+$router->get('register', 'PagesController@register');
 
 $router->get('users', 'UsersController@loadAll');
 $router->post('user', 'UsersController@store');
 $router->put('user/toogle-access', 'UsersController@toogleAccess');
+
+$router->post('user/auth', 'UsersController@authenticate');
 
 $router->get('clients', 'ClientsController@loadAll');
 

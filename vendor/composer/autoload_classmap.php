@@ -12,6 +12,7 @@ return array(
     'App\\Controllers\\UsersController' => $baseDir . '/app/controllers/UsersController.php',
     'App\\Core\\Request' => $baseDir . '/core/Request.php',
     'App\\Core\\Router' => $baseDir . '/core/Router.php',
+    'App\\Core\\Token' => $baseDir . '/core/Token.php',
     'App\\Models\\Client' => $baseDir . '/app/models/Client.php',
     'App\\Models\\User' => $baseDir . '/app/models/User.php',
     'App\\Models\\Validator' => $baseDir . '/app/models/Validator.php',

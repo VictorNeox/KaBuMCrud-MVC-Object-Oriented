@@ -1,9 +1,11 @@
 <?php
 namespace App\Controllers;
 use App\Models\{Client, Validator};
+use App\Core\Token;
 
 class ClientsController {
     public function store() {
+        $userData = Token::validateToken();
         $data = json_decode(file_get_contents('php://input'), true);
         
         $validate = new Validator();
@@ -15,8 +17,9 @@ class ClientsController {
             die();
         }
 
+
         $client = new Client($data['name'], $data['cpf'], $data['rg'], $data['telephone1'], 
-                            $data['telephone2'], $data['birth'], $data['email'], $data['user_id']
+                            $data['telephone2'], $data['birth'], $data['email'], $userData['id']
                 );
 
         $response = $client->store();
@@ -24,6 +27,7 @@ class ClientsController {
     }
 
     public function update() {
+        $userData = Token::validateToken();
         $data = json_decode(file_get_contents('php://input'), true);
 
         $validate = new Validator();
@@ -43,16 +47,16 @@ class ClientsController {
         }
 
         $client = new Client($data['name'], $data['cpf'], $data['rg'], $data['telephone1'], 
-                            $data['telephone2'], $data['birth'], $data['email'], $data['user_id']
+                            $data['telephone2'], $data['birth'], $data['email'], $userData['id']
                 );
 
-        $response = $client->update($data['id']);
+        $response = $client->update($data['id'], $userData);
         echo json_encode($response);
     }
 
     // Na verdade, essa irá INATIVAR o cadastro.
     public function delete() {
-
+        $userData = Token::validateToken();
 
         $data = json_decode(file_get_contents('php://input'), true);
 
@@ -63,7 +67,7 @@ class ClientsController {
             die();
         }
 
-        $response = Client::delete($data['id']);
+        $response = Client::delete($data['id'], $userData);
 
         echo json_encode($response);
     }
@@ -85,7 +89,9 @@ class ClientsController {
     }
 
     public function loadAll() {
-        $clients = Client::loadAll();
+        $userData = Token::validateToken();
+
+        $clients = Client::loadAll($userData);
 
         return view('clients', compact('clients'));
     }

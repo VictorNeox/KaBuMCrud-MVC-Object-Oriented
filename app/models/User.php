@@ -3,6 +3,7 @@
 namespace App\Models;
 use Db;
 use PDO;
+use App\Core\Token;
 
 class User {
     public $id;
@@ -37,7 +38,7 @@ class User {
 
         $rows = $sth->rowCount();
         if($rows) {
-            $response = array("status" => "success", "message" => "Usuário inserido com sucesso");
+            $response = array("status" => "success", "message" => "Usuário registrado com sucesso");
         } else {
             $response = array("status" => "error", "message" => "Ocorreu um erro, tente novamente.");
             http_response_code(400);
@@ -80,6 +81,39 @@ class User {
             $response = array("status" => "success", "message" => "O nível de acesso do usuário foi alterado.");
         } else {
             $response = array("status" => "error", "message" => "Ocorreu um erro, tente novamente.");
+            http_response_code(400);
+        }
+        
+        return $response;
+    }
+
+    public static function authenticate($login, $password) {
+        $password = sha1($password);
+
+        $db = Db::connect();
+        $query = 
+            "SELECT
+                id, 
+                access, 
+                name
+            FROM
+                users
+            WHERE
+                login = ?
+            AND
+                password = ?
+        ";
+        $sth = $db->prepare($query);
+        $sth->execute(array($login, $password));
+
+        $rows = $sth->rowCount();
+
+        if($rows) {
+            $response = array("status" => "success", "message" => "Login realizado.");
+            $token = Token::generateToken($sth->fetch(PDO::FETCH_OBJ));
+            setcookie('token', $token, time() + (10 * 365 * 24 * 60 * 60), '/');
+        } else {
+            $response = array("status" => "error", "message" => "Login e/ou senha incorretos.");
             http_response_code(400);
         }
         

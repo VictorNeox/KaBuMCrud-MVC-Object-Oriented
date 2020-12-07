@@ -45,7 +45,7 @@ $("#edit-client").on('click', (e) => {
 });
 
 
-
+// REQUEST GENÉRICA!
 function doRequest(endpoint, method, data) {
     $.ajax({
         type: method,
@@ -78,3 +78,82 @@ function doRequest(endpoint, method, data) {
         }
     });
 }
+
+
+
+$("#login-btn").on('click', (e) => {
+    let data = {};
+
+    $.each($('#login-form').serializeArray(), function() {
+        data[this.name] = this.value;
+    });
+
+    data = JSON.stringify(data);
+
+    console.log(data);
+    $.ajax({
+        type: 'POST',
+        url: 'user/auth',
+        async: true,
+        data,
+        dataType: 'json',
+        success: function(response){
+            Swal.fire({
+                title: 'Sucesso!',
+                text: response.message,
+                icon: response.status,
+                confirmButtonColor: '#2BBBAB',
+            }).then(() => {
+                window.location.href = "clients";
+            })
+        },
+        error: function(response) {
+            console.log(response);
+            Swal.fire({
+
+                title: 'Erro!',
+                text: response.responseJSON.message,
+                icon: response.responseJSON.status,
+                confirmButtonColor: '#2BBBAB',
+            });
+        }
+    });
+});
+
+$("#register-btn").on('click', (e) => {
+    let data = {};
+
+    $.each($('#register-form').serializeArray(), function() {
+        data[this.name] = this.value;
+    });
+
+    data = JSON.stringify(data);
+
+    console.log(data);
+    $.ajax({
+        type: 'POST',
+        url: 'user',
+        async: true,
+        data,
+        dataType: 'json',
+        success: function(response){
+            Swal.fire({
+                title: 'Sucesso!',
+                text: response.message,
+                icon: response.status,
+                confirmButtonColor: '#2BBBAB',
+            }).then(() => {
+                window.location.href = "login";
+            })
+        },
+        error: function(response) {
+            Swal.fire({
+
+                title: 'Erro!',
+                text: response.responseJSON.message,
+                icon: response.responseJSON.status,
+                confirmButtonColor: '#2BBBAB',
+            });
+        }
+    });
+});
