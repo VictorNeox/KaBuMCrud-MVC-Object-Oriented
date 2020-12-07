@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use App\Models\{User, Validator};
+use App\Core\Token;
 
 class UsersController {
     public function store() {
@@ -46,6 +47,14 @@ class UsersController {
     }
 
     public function loadAll() {
+
+        $userData = Token::validateToken();
+
+        if($userData['access'] < 1) {
+            header('Location: clients');
+            exit();
+        }
+
         $users = User::loadAll();
 
         return view('users', compact('users'));

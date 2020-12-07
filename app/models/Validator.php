@@ -31,6 +31,19 @@ class Validator {
     }
 
 
+    public function validateAddress(array $address) {
+        $this->validateStreet($data['street']);
+        $this->validateNeighbourhood($data['neighbourhood']);
+        $this->validateZipcode($data['zipcode']);
+        $this->validateNumber($data['number']);
+        $this->validateCity($data['city']);
+        $this->validateUf($data['uf']);
+    }
+
+
+    //---------------------------------------------------------------//
+
+
     public function validateEmail($email) {
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->setError('E-mail inválido ou inexistente.');
@@ -69,6 +82,42 @@ class Validator {
     public function validateTelephone($telephone) {
         if(!isset($telephone) || empty($telephone) || strlen($telephone) != 9 || !preg_match('/^[0-9]*$/', $telephone)) {
             $this->setError("O Telefone é obrigatório e precisa ter exatamente 9 caractéres (Apenas números).");
+        }
+    }
+
+    public function validateStreet($street) {
+        if(!isset($street) || empty($street)) {
+            $this->setError("A rua é obrigatória.");
+        }
+    }
+
+    public function validateNeighbourhood($neighbourhood) {
+        if(!isset($neighbourhood) || empty($neighbourhood)) {
+            $this->setError("O bairro é obrigatório.");
+        }
+    }
+
+    public function validateZipcode($zipcode) {
+        if(!isset($zipcode) || empty($zipcode) || strlen($zipcode) != 8 || !preg_match('/^[0-9]*$/', $zipcode)) {
+            $this->setError("O cep é obrigatório e precisa ter 9 caractéres (apenas numeros).");
+        }
+    }
+
+    public function validateNumber($number) {
+        if(!isset($number) || empty($number)) {
+            $this->setError("O número é obrigatório.");
+        }
+    }
+
+    public function validateCity($city) {
+        if(!isset($city) || empty($city)) {
+            $this->setError("A cidade é obrigatória.");
+        }
+    }
+
+    public function validateUf($city) {
+        if(!isset($city) || empty($city)) {
+            $this->setError("O UF é obrigatório e precisa ter apenas 2 caractéres.");
         }
     }
 

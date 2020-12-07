@@ -22,6 +22,44 @@ class User {
 
     public function store() {
         $db = Db::connect();
+
+        $query = 
+                "SELECT 
+                    *
+                FROM
+                    users
+                WHERE 
+                    email = ?";
+        $sth = $db->prepare($query);
+        $sth->execute(array($this->email));
+
+        $rows = $sth->rowCount();
+
+        if($rows) {
+            $response = array("status" => "error", "message" => "E-mail já está em uso.");
+            http_response_code(400);
+            return $response;
+        }
+
+        $query = 
+                "SELECT 
+                    *
+                FROM
+                    users
+                WHERE 
+                    login = ?";
+        $sth = $db->prepare($query);
+        $sth->execute(array($this->login));
+
+        $rows = $sth->rowCount();
+
+
+        if($rows) {
+            $response = array("status" => "error", "message" => "Login já está em uso.");
+            http_response_code(400);
+            return $response;
+        }
+
         $query = "INSERT INTO 
                     users (login, password, name, email)
                 VALUES 
