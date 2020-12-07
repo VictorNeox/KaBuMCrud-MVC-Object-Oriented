@@ -51,10 +51,44 @@ class Address {
         if($rows) {
             $response = array("status" => "success", "message" => "Endereço registrado com sucesso");
         } else {
-            $response = array("status" => "error", "message" => "Ocorreu um erro, tente novamente.");
+        $response = array("status" => "error", "message" =>  $sth->errorInfo()/*"Ocorreu um erro, tente novamente."*/);
             http_response_code(400);
         }
 
         return $response;
+    }
+
+    public static function loadAllById($id) {
+        $db = Db::connect();
+        $query = 
+                "SELECT
+                    adr.id,
+                    adr.street,
+                    adr.number,
+                    adr.neighbourhood,
+                    adr.zipcode,
+                    adr.city,
+                    adr.uf,
+                    adr.complement,
+                    adr.client_id,
+                    adr.main_address,
+                    clt.id client_id,
+                    clt.name
+                FROM
+                    addresses adr
+                JOIN 
+                    clients clt
+                ON adr.client_id = clt.id
+                WHERE 
+                    adr.client_id = ?
+                ";
+
+
+        $sth = $db->prepare($query);
+        $sth->execute(array($id));
+
+        $addresses = $sth->fetchAll(PDO::FETCH_OBJ);
+
+        return $addresses;
     }
 }

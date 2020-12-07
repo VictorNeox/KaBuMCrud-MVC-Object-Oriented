@@ -1,0 +1,51 @@
+.modal {
+    width: 35% !important; 
+}
+
+.input-field {
+    height: 35px;
+}
+
+#address-modal form {
+    margin-left: 40px;
+    width: 80%;
+}
+
+.card-content p {
+    color: gray;
+}
+
+#address-modal {
+    font-size: 24px;
+    color: rgb(131, 128, 128);
+    padding: 15px;
+}
+
+#address-title  {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.icons {
+    position: absolute;
+    z-index: 2;
+    top: 5px;
+    right: 10px;
+}
+
+.card {
+    height: 125px;
+}
+
+.card-content {
+    margin-top: 15px;
+}
+
+.trash-icon {
+    color: rgb(109, 109, 109);
+}
+
+.trash-icon:hover {
+    color: rgb(59, 59, 59);
+    transition: 0.3s;
+}

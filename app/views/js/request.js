@@ -44,6 +44,18 @@ $("#edit-client").on('click', (e) => {
     doRequest('client', 'PUT', data);
 });
 
+$("#insert-address").on('click', (e) => {
+    let data = {};
+
+    $.each($('#insert-address-form').serializeArray(), function() {
+        data[this.name] = this.value;
+    });
+
+    data['id'] = clientId;
+    data = JSON.stringify(data);
+    doRequest('address', 'PUT', data);
+});
+
 
 // REQUEST GENÉRICA!
 function doRequest(endpoint, method, data) {

@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Controllers;
-use App\Models\{User, Validator};
+use App\Models\{Address, Validator};
 use App\Core\Token;
 
-class UsersController {
+class AddressesController {
     public function store() {
         $userData = Token::validateToken();
         $data = json_decode(file_get_contents('php://input'), true);
@@ -26,10 +26,23 @@ class UsersController {
         }
 
         $address = new Address($data['street'], $data['neighbourhood'], $data['zipcode'], $data['number'], 
-                        $data['city'], $data['uf'], $data['client_id'], $userData['complement']);
+                        $data['city'], $data['uf'], $data['id'], $userData['complement']);
 
         $response = $address->store();
 
-        return json_encode($response);
+        echo json_encode($response);
+    }
+
+    public function loadAllById() {
+        $userData = Token::validateToken();
+        if(!isset($_GET['id']) || empty($_GET['id'])) {
+            header("Location: clients");
+            die();
+        }
+        $clientId = $_GET['id'];
+        
+        $addresses = Address::loadAllById($clientId);
+
+        return view('addresses', compact('addresses'));
     }
 }
