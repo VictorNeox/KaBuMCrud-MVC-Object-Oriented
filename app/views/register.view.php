@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="app/assets/css/register.css">
 
-    <title>C.R.U.D - Home</title>
+    <title>C.R.U.D - Registrar</title>
 </head>
 <body>
     

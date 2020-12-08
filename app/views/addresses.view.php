@@ -8,7 +8,7 @@
         <?php require 'partials/cdn.php' ?>
     
         <link rel="stylesheet" href="app/assets/css/address.css">
-        <title>C.R.U.D - Addresses</title>
+        <title>C.R.U.D - Endereços</title>
     </head>
 <body>
     
