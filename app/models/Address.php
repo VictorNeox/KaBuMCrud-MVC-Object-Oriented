@@ -14,7 +14,7 @@ class Address {
     private $client_id;
     private $complement;
 
-    public function __construct($street, $neighbourhood, $zipcode, $number, $city, $uf, $client_id, $complement) {
+    public function __construct($street, $neighbourhood, $zipcode, $number, $city, $uf, $client_id, $complement = '') {
         $this->street = $street;
         $this->neighbourhood = $neighbourhood;
         $this->zipcode = $zipcode;
@@ -72,8 +72,7 @@ class Address {
                     adr.complement,
                     adr.client_id,
                     adr.main_address,
-                    clt.id client_id,
-                    clt.name
+                    clt.id client_id
                 FROM
                     addresses adr
                 JOIN 
@@ -86,9 +85,29 @@ class Address {
 
         $sth = $db->prepare($query);
         $sth->execute(array($id));
-
         $addresses = $sth->fetchAll(PDO::FETCH_OBJ);
 
-        return $addresses;
+        $query = 
+                "SELECT
+                    id,
+                    name
+                FROM
+                    clients
+                WHERE 
+                    id = ?
+                ";
+
+
+        $sth = $db->prepare($query);
+        $sth->execute(array($id));
+
+        $user = $sth->fetch(PDO::FETCH_OBJ);
+
+        if(!$user){
+            header('Location: clients');
+            die();
+        }
+
+        return array('client' => $user, 'addresses' => $addresses);
     }
 }

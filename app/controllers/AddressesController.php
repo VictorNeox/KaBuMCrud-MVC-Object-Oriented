@@ -26,7 +26,7 @@ class AddressesController {
         }
 
         $address = new Address($data['street'], $data['neighbourhood'], $data['zipcode'], $data['number'], 
-                        $data['city'], $data['uf'], $data['id'], $userData['complement']);
+                        $data['city'], $data['uf'], $data['id'], $data['complement']);
 
         $response = $address->store();
 
@@ -41,8 +41,8 @@ class AddressesController {
         }
         $clientId = $_GET['id'];
         
-        $addresses = Address::loadAllById($clientId);
+        $data = Address::loadAllById($clientId);
 
-        return view('addresses', compact('addresses'));
+        return view('addresses', compact('data'));
     }
 }

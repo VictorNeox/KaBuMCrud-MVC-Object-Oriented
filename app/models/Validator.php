@@ -31,7 +31,7 @@ class Validator {
     }
 
 
-    public function validateAddress(array $address) {
+    public function validateAddress(array $data) {
         $this->validateStreet($data['street']);
         $this->validateNeighbourhood($data['neighbourhood']);
         $this->validateZipcode($data['zipcode']);

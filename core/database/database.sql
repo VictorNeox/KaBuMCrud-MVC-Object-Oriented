@@ -28,7 +28,7 @@ CREATE TABLE addresses(
     neighbourhood varchar(255) NOT NULL,
     street varchar(255) NOT NULL,
     number varchar(10) NOT NULL,
-    complement varchar(255) NOT NULL,
+    complement varchar(255),
     zipcode varchar(8) NOT NULL,
     city varchar(100) NOT NULL,
     uf varchar(2) NOT NULL,

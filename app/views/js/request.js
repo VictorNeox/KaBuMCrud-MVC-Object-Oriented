@@ -51,7 +51,8 @@ $("#insert-address").on('click', (e) => {
         data[this.name] = this.value;
     });
 
-    data['id'] = clientId;
+    data['id'] = $("#client-id").attr('data-id');
+        
     data = JSON.stringify(data);
     doRequest('address', 'PUT', data);
 });

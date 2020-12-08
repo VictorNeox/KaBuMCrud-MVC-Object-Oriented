@@ -14,14 +14,16 @@
     
     <?php require 'partials/header.php' ?>
 
-    <div class="content">
+    <div class="content"> 
 
-        <h1 class="table-title">Endereços do cliente <?php echo $addresses[0]->name ?></h1>
+        <h1 class="table-title">Endereços do cliente <?php echo $data['client']->name ?></h1>
         <a class="waves-effect waves-light btn modal-trigger" href="#insert-address-modal">Adicionar</a>
         <a class="waves-effect waves-light btn" href="/">Voltar</a>
+        
+        <input type="hidden" id="client-id" data-id="<?php echo $data['client']->id ?>">
 
-        <div class="input-field row ">
-            <?php foreach($addresses as $address){?>
+         <div class="input-field row ">
+            <?php foreach($data['addresses'] as $address){?>
                 <div class="col s3">
                     <div class="card horizontal">
                         <label style="position: absolute; z-index: 2;">
@@ -47,8 +49,5 @@
 
     <?php require ('partials/insertAddressModal.php'); ?>
 
-    <script>
-        let clientId = <?php echo $addresses[0]->client_id ?>;
-    </script>
 </body>
 </html>
