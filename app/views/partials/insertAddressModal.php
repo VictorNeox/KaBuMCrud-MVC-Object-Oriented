@@ -74,7 +74,7 @@
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fechar</a>
-            <a href="#!" class="waves-effect waves-green btn-flat" id="insert-address">Enviar</a>
+            <button href="#!" class="waves-effect waves-green btn-flat" id="insert-address">Enviar</button>
         </div>
     </form>
 </div>

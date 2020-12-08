@@ -121,6 +121,8 @@ class Validator {
         }
     }
 
+
+    // Pensando ainda em como validar a data;
     // public function validateDate($date) {
     //     if(!isset($date) || empty($date) || checkdate($date)) {
     //         $this->setError("Data inválida.");
@@ -128,6 +130,7 @@ class Validator {
     // }
 
     private function setError($error) {
+
         array_push($this->errors, $error);
     }
 

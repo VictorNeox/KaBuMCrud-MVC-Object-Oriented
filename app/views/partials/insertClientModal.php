@@ -61,6 +61,7 @@
                         maxlength="9"  
                         class="validate" 
                         onkeypress="return (/[0-9]/i.test(event.key))"
+                        required
                     >
                     <label for="rg">RG</label>
                 </div>
@@ -96,7 +97,7 @@
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fechar</a>
-            <a href="#!" class="waves-effect waves-green btn-flat" id="insert-client">Enviar</a>
+            <button href="#!" class="waves-effect waves-green btn-flat" id="insert-client">Enviar</button>
         </div>
     </form>
 </div>

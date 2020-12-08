@@ -8,8 +8,9 @@ echo '<link rel="stylesheet" href="app/assets/css/global.css">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script defer src="https://kit.fontawesome.com/a076d05399.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.js"></script>
 <script defer src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
 <script defer src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+<script defer src="app/views/js/formValidationRules.js"></script>
 <script defer src="app/views/js/utils.js"></script>
 <script defer src="app/views/js/request.js"></script>';

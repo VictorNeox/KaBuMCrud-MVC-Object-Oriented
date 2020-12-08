@@ -14,7 +14,7 @@ class UsersController {
 
         if(!empty($errors)) {
             http_response_code(400);
-            echo json_encode($errors);
+            echo json_encode(array("status" => "error", "message" => $errors));
             die();
         }
 
