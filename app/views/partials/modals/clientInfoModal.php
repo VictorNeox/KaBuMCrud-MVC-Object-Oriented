@@ -9,8 +9,8 @@
             <p>Telefone 1: <span class="cel telephone1"></span></p>
             <p>Telefone 2: <span class="cel telephone2"></span></p>
             <p>Endereço principal:</p>
-            <p><span class="street"></span>, <span class="number"></span></p>
-            <p><span class="neighbourhood"></span> - <span class="zipcode"></span></p>
+            <p><span class="street"></span><span class="number"></span></p>
+            <p><span class="neighbourhood"></span><span class="zipcode"></span></p>
             <p><span class="complement"></span></p>
         </div>
         <div class="modal-footer">

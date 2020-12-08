@@ -112,11 +112,14 @@ $(".info-client").on('click', (e) => {
             $("#info-modal .email").text(response.data.email);
             $("#info-modal .telephone1").text(response.data.telephone1);
             $("#info-modal .telephone2").text(response.data.telephone2);
-            $("#info-modal .street").text(response.data.street);
-            $("#info-modal .number").text(response.data.number);
-            $("#info-modal .neighbourhood").text(response.data.neighbourhood);
-            $("#info-modal .zipcode").text(response.data.zipcode);
-            $("#info-modal .complement").text(response.data.complement);
+
+            if(response.data.zipcode) {
+                $("#info-modal .street").text(`${response.data.street}, `);
+                $("#info-modal .number").text(response.data.number);
+                $("#info-modal .neighbourhood").text(`${response.data.neighbourhood} - `);
+                $("#info-modal .zipcode").text(response.data.zipcode);
+                $("#info-modal .complement").text(response.data.complement);
+            }
 
         },
         error: function(response) {
