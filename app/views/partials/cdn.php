@@ -12,5 +12,6 @@ echo '<link rel="stylesheet" href="app/assets/css/global.css">
 <script defer src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
 <script defer src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
 <script defer src="app/views/js/formValidationRules.js"></script>
+<script defer src="app/views/js/cep.js"></script>
 <script defer src="app/views/js/utils.js"></script>
 <script defer src="app/views/js/request.js"></script>';
