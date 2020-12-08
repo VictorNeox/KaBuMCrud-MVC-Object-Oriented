@@ -1,13 +1,13 @@
 $(document).ready(function() {
 
-    function getAddressByZipcode() {
+    function getAddressByZipcode(formId) {
         var cep = $(this).val().replace(/\D/g, '');
         if (cep != "") {
             var validatecep = /^[0-9]{8}$/;
 
             if(validatecep.test(cep)) {
 
-                $("#street").val("..");
+                $("#street").val("...");
                 $("#neighbourhood").val("...");
                 $("#city").val("...");
                 $("#uf").val("...");

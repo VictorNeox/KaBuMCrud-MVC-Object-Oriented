@@ -47,8 +47,8 @@
         </div>
     </div>
 
-    <?php require ('partials/insertAddressModal.php'); ?>
-    <?php require ('partials/editAddressModal.php'); ?>
+    <?php require ('partials/modals/insertAddressModal.php'); ?>
+    <?php require ('partials/modals/editAddressModal.php'); ?>
 
 </body>
 </html>

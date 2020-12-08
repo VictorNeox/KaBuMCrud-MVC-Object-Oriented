@@ -83,8 +83,8 @@
         <?php } ?>
     </div>
     
-    <?php require ('partials/insertClientModal.php'); ?>
-    <?php require ('partials/editClientModal.php'); ?>
-    <?php require ('partials/clientInfoModal.php'); ?>
+    <?php require ('partials/modals/insertClientModal.php'); ?>
+    <?php require ('partials/modals/editClientModal.php'); ?>
+    <?php require ('partials/modals/clientInfoModal.php'); ?>
 </body>
 </html>
