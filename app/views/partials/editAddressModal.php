@@ -1,7 +1,8 @@
-<div id="insert-address-modal" class="modal modal-fixed-footer">
-    <form id="insert-address-form" class=" col s12 offset-s1">
+<div id="edit-address-modal" class="modal modal-fixed-footer">
+    <form id="edit-address-form" class=" col s12 offset-s1">
+        <input type="hidden" id="id" name="id">
         <div class="modal-content">
-        <h4 class="center-align">Registrar endereço</h4>
+            <h4 class="center-align">Editar endereço</h4>
             <div class="row">
                 <div class="input-field col s12">
                     <input
@@ -81,7 +82,7 @@
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fechar</a>
-            <button href="#!" class="waves-effect waves-green btn-flat">Enviar</button>
+            <button href="#!" class="waves-effect waves-green btn-flat" id="insert-address">Enviar</button>
         </div>
     </form>
 </div>

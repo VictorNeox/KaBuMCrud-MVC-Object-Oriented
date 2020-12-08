@@ -12,7 +12,10 @@
     <?php require 'partials/header.php' ?>
     <div class="content">
         <h1 class="table-title">Clientes</h1>
-            <button data-target="insertModal" class="waves-effect waves-light btn modal-trigger">Adicionar cliente</button>
+        <button data-target="insertModal" class="waves-effect waves-light btn modal-trigger">Adicionar cliente</button>
+        <?php if($data['user']['access'] > 0) { ?>
+            <a href="users" class="waves-effect btn waves-light">Usuários</a>
+        <?php } ?>
         <div class="row">
 
             <form>
@@ -37,7 +40,7 @@
             </form>
         </div>
 
-        <?php if(empty($clients)) { ?>
+        <?php if(empty($data['clients'])) { ?>
             <h1 class="non-client">Nenhum cliente inserido!</h1>
         <?php } else { ?>
             <div class="table-content">
@@ -49,20 +52,23 @@
                             <th>CPF</th>
                             <th>RG</th>
                             <th>E-mail</th>
+                            <th>Responsável</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
 
+
                     <tbody>
-                        <?php foreach($clients as $client){ 
-                            $status = $client->isActive ? 'active-icon' : 'inactive-icon'; 
-                        ?>
+                        <?php foreach($data['clients'] as $client) { 
+                            $status = $client->isActive ? 'active-icon' : 'inactive-icon';
+                            ?>
                             <tr>
                                 <td><?php echo htmlspecialchars($client->id) ?></td>
                                 <td><?php echo htmlspecialchars($client->name) ?></td>
                                 <td class="cpf"><?php echo htmlspecialchars($client->cpf) ?></td>
                                 <td class="rg"><?php echo htmlspecialchars($client->rg) ?></td>
                                 <td><?php echo htmlspecialchars($client->email) ?></td>
+                                <td><?php echo htmlspecialchars($client->responsible) ?></td>
                                 <td>
                                     <i data-id="<?php echo $client->id; ?>" class="fas fas fa-eye info-client modal-trigger" href="#info-modal"></i>
                                     <i data-id="<?php echo $client->id; ?>" class="fas fa-pencil-alt pencil-icon modal-trigger edit-btn" href="#editModal"></i>
@@ -79,5 +85,6 @@
     
     <?php require ('partials/insertClientModal.php'); ?>
     <?php require ('partials/editClientModal.php'); ?>
+    <?php require ('partials/clientInfoModal.php'); ?>
 </body>
 </html>

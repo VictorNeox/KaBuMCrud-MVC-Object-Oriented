@@ -54,6 +54,21 @@ class ClientsController {
         echo json_encode($response);
     }
 
+    public function getFullInfo() {
+        $userData = Token::validateToken();
+        $clientId = $_GET['id'];
+        if(!isset($clientId) || empty($clientId)) {
+            http_response_code(400);
+            $response = array("status" => "error", "message" => "O ID do cliente é obrigatório.");
+            echo json_encode($response);
+            die();
+        }
+
+        $response = Client::getFullInfo($clientId);
+        echo json_encode($response);
+    }
+
+
     // Na verdade, essa irá INATIVAR o cadastro.
     public function delete() {
         $userData = Token::validateToken();
@@ -91,8 +106,8 @@ class ClientsController {
     public function loadAll() {
         $userData = Token::validateToken();
 
-        $clients = Client::loadAll($userData);
+        $data = Client::loadAll($userData);
 
-        return view('clients', compact('clients'));
+        return view('clients', compact('data'));
     }
 }

@@ -23,6 +23,18 @@ $("#login-btn").on('click', (e) => {
     doRequest('user/auth', 'POST', data, false);
 });
 
+$(".main-address").on('click', (e) => {
+    let data = {'id': $(e.target).attr('data-id')};
+    data = JSON.stringify(data);
+    doRequest('address/main-address', 'PUT', data);
+});
+
+$(".address-delete").on('click', (e) => {
+    let data = {'id': $(e.target).attr('data-id')};
+    data = JSON.stringify(data);
+    doRequest('address', 'DELETE', data);
+});
+
 $("#register-btn").on('click', (e) => {
     let data = formToArray('register-form');
     data = JSON.stringify(data);
@@ -88,11 +100,24 @@ $("#insert-address-form").validate({
         let data = formToArray('insert-address-form');
         data['id'] = $("#client-id").attr('data-id');
         data = JSON.stringify(data);
-        doRequest('address', 'PUT', data);
+        doRequest('address', 'POST', data, false);
     },
     errorElement : addressFormOptions.errorElement,
     errorPlacement: addressFormOptions.errorPlacement
 });
+
+$("#edit-address-form").validate({
+    rules: addressFormOptions.rules,
+    messages: addressFormOptions.messages,
+    submitHandler: function(form) {
+        let data = formToArray('edit-address-form');
+        data = JSON.stringify(data);
+        doRequest('address', 'PUT', data, false);
+    },
+    errorElement : addressFormOptions.errorElement,
+    errorPlacement: addressFormOptions.errorPlacement
+});
+
 
 
 // FUNÇÕES AUXILIARES (códigos que estavam repetidos demais)
@@ -113,6 +138,7 @@ function doRequest(endpoint, method, data, reloadPageOnFail = true) {
         data,
         dataType: 'json',
         success: function(response){
+            console.log(response);
             Swal.fire({
                 title: 'Sucesso!',
                 text: response.message,

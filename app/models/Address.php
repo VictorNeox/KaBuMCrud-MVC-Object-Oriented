@@ -58,6 +58,126 @@ class Address {
         return $response;
     }
 
+    public function update($addressId) {
+        $db = Db::connect();
+        $query = 
+                "UPDATE
+                    addresses
+                SET 
+                    zipcode = ?,
+                    street = ?,
+                    number = ?,
+                    neighbourhood = ?,
+                    city = ?,
+                    uf = ?,
+                    complement = ?
+                WHERE
+                    id = ?";
+        $sth = $db->prepare($query);
+        $sth->execute(array(
+            $this->zipcode,
+            $this->street,
+            $this->number,
+            $this->neighbourhood,
+            $this->city,
+            $this->uf,
+            $this->complement,
+            $addressId
+        ));
+        $rows = $sth->rowCount();
+        if($rows) {
+            $response = array("status" => "success", "message" => "Informações alteradas com sucesso");
+        } else {
+            $response = array("status" => "error", "message" => "Ocorreu um erro, tente novamente.");
+            http_response_code(400);
+        }
+
+        return $response;
+    }
+
+    public static function getInfo($addressId) {
+        $db = Db::connect();
+        $query = 
+                "SELECT
+                    zipcode,
+                    street,
+                    number,
+                    neighbourhood,
+                    city,
+                    uf,
+                    complement
+                FROM 
+                    addresses
+                WHERE 
+                    id = ?";
+        $sth = $db->prepare($query);
+        $sth->execute(array($addressId));
+
+        $rows = $sth->rowCount();
+
+        if($rows) {
+            $response = array("status" => "success", "message" => "Informações encontradas.", "data" => $sth->fetch(PDO::FETCH_OBJ));
+        } else {
+            $response = array("status" => "error", "message" => "Ocorreu um erro, tente novamente.");
+            http_response_code(400);
+        }
+        return $response;
+    }
+
+    public static function toogleMainAddress($addressId) {
+        $db = Db::connect();
+        $query = 
+                "UPDATE
+                    addresses
+                SET 
+                    main_address = 0
+                WHERE
+                    main_address = 1";
+        $sth = $db->prepare($query);
+        $sth->execute();
+
+        $query = 
+                "UPDATE
+                    addresses
+                SET
+                    main_address = 1
+                WHERE
+                    id = ?";
+        $sth = $db->prepare($query);
+        $sth->execute(array($addressId));
+
+        $rows = $sth->rowCount();
+
+        if($rows) {
+            $response = array("status" => "success", "message" => "O endereço principal foi alterado.");
+        } else {
+            $response = array("status" => "error", "message" => "Ocorreu um erro, tente novamente.");
+            http_response_code(400);
+        }
+        return $response;
+    }
+
+    public static function delete($addressId) {
+        $db = Db::connect();
+        $query = 
+                "DELETE FROM
+                    addresses
+                WHERE
+                    id = ?";
+        $sth = $db->prepare($query);
+        $sth->execute(array($addressId));
+
+        $rows = $sth->rowCount();
+
+        if($rows) {
+            $response = array("status" => "success", "message" => "Endereço excluído.");
+        } else {
+            $response = array("status" => "error", "message" => "Ocorreu um erro, tente novamente.");
+            http_response_code(400);
+        }
+        return $response;
+    }
+
     public static function loadAllById($id) {
         $db = Db::connect();
         $query = 

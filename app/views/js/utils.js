@@ -41,20 +41,96 @@ $(".edit-btn").on('click', (e) => {
 
         },
         error: function(response) {
-            $("#insert-forml #name").val(response.data.name);
-            // Swal.fire({
+            Swal.fire({
 
-            //     title: 'Erro!',
-            //     text: response.responseJSON.message,
-            //     icon: response.responseJSON.status,
-            //     confirmButtonColor: '#2BBBAB',
-            // }).then(() => {
-            //     window.location.reload(true);
-            // });
+                title: 'Erro!',
+                text: response.responseJSON.message,
+                icon: response.responseJSON.status,
+                confirmButtonColor: '#2BBBAB',
+            });
         }
     });
-
 });
+
+
+$(".address-edit").on('click', (e) => {
+    const addressId = $(e.target).attr("data-id");
+
+    let data = {'id': addressId};
+    $("#edit-address-form #id").val(addressId);
+    
+    $.ajax({
+        type: 'GET',
+        url: 'address/getInfo',
+        async: true,
+        dataType: 'json',
+        data,
+        success: function(response){
+            console.log(response.data);
+            $("#edit-address-form #zipcode").val(response.data.zipcode);
+            $("#edit-address-form #street").val(response.data.street);
+            $("#edit-address-form #number").val(response.data.number);
+            $("#edit-address-form #neighbourhood").val(response.data.neighbourhood);
+            $("#edit-address-form #city").val(response.data.city);
+            $("#edit-address-form #uf").val(response.data.uf);
+            $("#edit-address-form #complement").val(response.data.complement);
+            M.updateTextFields();
+
+        },
+        error: function(response) {
+            Swal.fire({
+
+                title: 'Erro!',
+                text: response.responseJSON.message,
+                icon: response.responseJSON.status,
+                confirmButtonColor: '#2BBBAB',
+            });
+        }
+    });
+});
+
+$(".address-client").on('click', (e) => {
+    const clientId = $(e.target).attr("data-id");
+    window.location.href = `addresses?id=${clientId}`;
+})
+
+
+$(".info-client").on('click', (e) => {
+    const clientId = $(e.target).attr("data-id");
+    let data = {'id': clientId};
+    $.ajax({
+        type: 'GET',
+        url: 'client/getFullInfo',
+        async: true,
+        dataType: 'json',
+        data,
+        success: function(response){
+            $("#info-modal .name").text(response.data.name);
+            $("#info-modal .cpf").text(response.data.street);
+            $("#info-modal .rg").text(response.data.rg);
+            $("#info-modal .birth").text(response.data.birth);
+            $("#info-modal .email").text(response.data.email);
+            $("#info-modal .telephone1").text(response.data.telephone1);
+            $("#info-modal .telephone2").text(response.data.telephone2);
+            $("#info-modal .street").text(response.data.street);
+            $("#info-modal .number").text(response.data.number);
+            $("#info-modal .neighbourhood").text(response.data.neighbourhood);
+            $("#info-modal .zipcode").text(response.data.zipcode);
+            $("#info-modal .complement").text(response.data.complement);
+
+        },
+        error: function(response) {
+            Swal.fire({
+
+                title: 'Erro!',
+                text: response.responseJSON.message,
+                icon: response.responseJSON.status,
+                confirmButtonColor: '#2BBBAB',
+            });
+        }
+    });
+});
+
 
 $("#logout-btn").click(function(e) {
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";

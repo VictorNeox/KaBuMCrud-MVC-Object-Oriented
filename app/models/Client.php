@@ -102,6 +102,47 @@ class Client {
         return $response;
     }
 
+    public static function getFullInfo($clientId)  {
+        $db = Db::connect();
+        $query = 
+                "SELECT
+                    clt.name,
+                    clt.cpf,
+                    clt.rg,
+                    clt.birth,
+                    clt.email,
+                    clt.telephone1,
+                    clt.telephone2,
+                    adr.street, 
+                    adr.number, 
+                    adr.neighbourhood, 
+                    adr.city, 
+                    adr.uf, 
+                    adr.zipcode, 
+                    adr.complement
+                FROM 
+                    clients clt
+                LEFT JOIN 
+                    addresses adr
+                ON 
+                    clt.id = adr.client_id 
+                    AND adr.main_address = 1
+                WHERE
+                    clt.id = ?";
+        $sth = $db->prepare($query);
+        $sth->execute(array($clientId));
+
+        $rows = $sth->rowCount();
+        if($rows) {
+            $response = array("status" => "success", "message" => "Informações encontradas.", "data" => $sth->fetch(PDO::FETCH_OBJ));
+        } else {
+            $response = array("status" => "error", "message" => "Ocorreu um erro, tente novamente.");
+            http_response_code(400);
+        }
+
+        return $response;
+    }
+
     public static function delete($clientId, $userData) {
 
         $access = $userData['access'];
@@ -177,26 +218,31 @@ class Client {
         $whereId = '';
 
         if((isset($filter) && !empty($filter)) && (isset($search) && !empty($search))) {
-            $where = "WHERE $filter LIKE '%$search%'";
+            $where = "WHERE clt.$filter LIKE '%$search%'";
         }
 
         if($access < 1) {
-            $where = (empty($where)) ? "WHERE user_id = '$user_id'" : $where . " AND user_id = '$user_id'";
+            $where = (empty($where)) ? "WHERE clt.user_id = '$user_id'" : $where . " AND clt.user_id = '$user_id'";
         }
         
         $query = 
                 "SELECT    
-                        id,
-                        name,
-                        rg,
-                        cpf,
-                        telephone1,
-                        telephone2,
-                        birth,
-                        email,
-                        isActive
+                        clt.id,
+                        clt.name,
+                        clt.rg,
+                        clt.cpf,
+                        clt.telephone1,
+                        clt.telephone2,
+                        clt.birth,
+                        clt.email,
+                        clt.isActive,
+                        usr.name responsible
                     FROM
-                        clients
+                        clients clt
+                    LEFT JOIN
+                        users usr
+                    ON 
+                        clt.user_id = usr.id
                     $where
                     ORDER BY
                         isActive DESC
@@ -204,7 +250,7 @@ class Client {
         $sth = $db->prepare($query);
         $sth->execute();
 
-        return $sth->fetchAll(PDO::FETCH_OBJ);
+        return array('user' => $userData, 'clients' => $sth->fetchAll(PDO::FETCH_OBJ));
 
     }
 }

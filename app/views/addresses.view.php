@@ -31,8 +31,8 @@
                             <span>Principal</span>
                         </label>
                         <div class="icons">
-                            <i data-id="<?php echo $address->id?>"  class="fas fa-pencil-alt pencil-icon address-edit modal-trigger" href="#modal1"></i>
-                            <i data-id="<?php echo $address->id?>" class="fas fa-trash-alt trash-icon"></i>
+                            <i data-id="<?php echo $address->id?>"  class="fas fa-pencil-alt pencil-icon address-edit modal-trigger" href="#edit-address-modal"></i>
+                            <i data-id="<?php echo $address->id?>" class="fas fa-trash-alt trash-icon address-delete"></i>
                         </div>
                         <div class="card-stacked">
                             <div class="card-content">
@@ -48,6 +48,7 @@
     </div>
 
     <?php require ('partials/insertAddressModal.php'); ?>
+    <?php require ('partials/editAddressModal.php'); ?>
 
 </body>
 </html>
